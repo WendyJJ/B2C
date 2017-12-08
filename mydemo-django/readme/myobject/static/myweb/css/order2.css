@@ -1,0 +1,17 @@
+
+/*背景图*/
+.banner-box {
+	height: 900px;
+	width: 1240px;
+	margin-left:200px;
+    	background: url(../img/7af40ad162d9f2d34c7311c1a2ec8a136327ccb9.jpg) no-repeat 0 center;
+}
+
+/*表二=======*/
+tr th{
+	text-align:center;
+}
+
+tr td{
+	text-align:center;
+ }

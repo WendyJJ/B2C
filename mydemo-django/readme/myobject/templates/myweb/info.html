@@ -1,0 +1,19 @@
+{% extends "myweb/base.html" %}
+{% load static from staticfiles %}
+{% block "mylink" %}
+	<link rel="stylesheet" type="text/css" href="{% static 'myweb/css/register2.css' %}">
+{% endblock %}
+{% block mainbody %}
+
+    <div class="container-fluid"> 
+		<div class="banner-box hidden-xs hidden-sm">
+			<center>
+				<h2>{{ info }}</h2><br/><br/>
+				<a href="{% url 'login' %}"><button style="width:50px;height:40px;">登录</button></a>
+				&nbsp;&nbsp;&nbsp;&nbsp;
+				<a href="{% url 'register' %}"><button style="width:50px;height:40px;">返回</button></a>
+			</center>	
+		</div>
+    </div>
+  	
+{% endblock %}

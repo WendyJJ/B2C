@@ -1,0 +1,34 @@
+{% extends "myadmin/base.html" %}
+
+{% block mainbody %}
+    <center>                
+    <h4>
+        订单详情信息
+    </h4>
+    <br/>
+    <table class="table table-bordered table-striped">
+        <thead>
+            <tr>
+                <th>ID号</th>
+                <th>商品名称</th>
+                <th>图片</th>
+                <th>单价</th>
+                <th>数量</th>
+                <th>小计</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for detail in detaillist %}
+            <tr>
+                <td>{{ detail.orderid }}</td>
+                <td>{{ detail.name }}</td>
+                <td><img src="/static/goods/s_{{ detail.picname }}" width="60"/></td>
+                <td>{{ detail.price }}</td>
+                <td>{{ detail.num }}</td>
+                <td>{% widthratio detail.num 1 detail.price %}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+{% endblock %}

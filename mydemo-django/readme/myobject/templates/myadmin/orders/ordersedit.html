@@ -1,0 +1,60 @@
+{% extends "myadmin/base.html" %}
+
+{% block mainbody %}
+    <center>                
+    <h4>
+        订单详情信息
+    </h4>
+    <br/>
+    <form action="#" method="post">
+    {% csrf_token %}
+    <table class="table table-bordered table-striped">
+        <thead>
+            <tr>
+                <th>ID号</th>
+                <th>商品名称</th>
+                <th>图片</th>
+                <th>单价</th>
+                <th>数量</th>
+                <th>小计</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for detail in detaillist %}
+            <tr>
+                <td>{{ detail.orderid }}</td>
+                <td>{{ detail.name }}</td>
+                <td><img src="/static/goods/s_{{ detail.picname }}" width="60"/></td>
+                <td>{{ detail.price }}</td>
+                <td>{{ detail.num }}</td>
+                <td>{% widthratio detail.num 1 detail.price %}</td>
+            </tr> 
+            {% endfor %}
+        </tbody>
+    </table>
+    <div class="control-group">
+        <div class="controls">
+            <span style="font-size:18px;">状态:&nbsp;&nbsp;</span>
+            <input type="radio" name="status" class="input-xlarge" id="input01" checked value="0" /> 新订单 
+            <input type="radio" name="status" class="input-xlarge" id="input01" 
+            {% if detail.status == 1 %}
+                checked  
+            {% endif %}
+            value="1" /> 已发货
+            <input type="radio" name="status" class="input-xlarge" id="input01" 
+            {% if detail.status == 2 %}
+                checked  
+            {% endif %}
+            value="2" /> 已收货
+            <input type="radio" name="status" class="input-xlarge" id="input01" 
+            {% if detail.status == 3 %}
+                checked  
+            {% endif %}
+            value="3" /> 取消订单
+        </div>
+    </div>
+    <!-- <button type="submit" class="btn">保存</button>&nbsp;&nbsp;&nbsp; <button type="reset" class="btn">重置</button> -->
+    <input type="submit" value="保存"/>&nbsp;&nbsp;&nbsp;&nbsp;
+    <input type="reset" value="重置"/>
+    </form>
+{% endblock %}

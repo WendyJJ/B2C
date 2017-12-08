@@ -1,0 +1,68 @@
+{% extends "myadmin/base.html" %}
+
+{% block mainbody %} 
+    <center>               
+    <h4>
+        浏览订单详情信息
+    </h4>
+    <br/>
+    <table class="table table-bordered table-striped">
+        <thead>
+            <tr>
+                <th>订单号</th>
+                <th>下单号</th>
+                <th>收件人</th>
+                <th>收件地址</th>
+                <th>收件人电话</th>
+                <th>下单时间</th>
+                <th>订单总金额</th>
+                <th>订单状态</th>
+                <th>操作</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for orders in orderlist.values %}
+            <tr>
+                <td>{{ orders.id }}</td>
+                <td>{{ orders.uid }}</td>
+                <td>{{ orders.linkman}}</td>
+                <td>{{ orders.address }}</td>
+                <td>{{ orders.phone }}</td>
+                <td>{{ orders.addtime}}</td>
+                <td>{{ orders.total }}</td>
+                <td {% if orders.status == 0 %}
+                        style="color:#93c;"
+                    {% elif orders.status == 1 %}
+                        style="color:green;"
+                    {% elif orders.status == 2 %}
+                        style="color:red;"
+                    {% elif orders.status == 3 %}
+                        style="color:#F26129;"
+                    {% endif %}>
+                    {% if orders.status == 0 %} 新订单
+                    <form action="{% url 'myadmin_ordersupdate' %}" method="post">
+                    {% csrf_token %}
+                        <button>发货</button> 
+                        <input style="display:none;" name="id" value="{{ orders.id }}">
+                        <input style="display:none;" name="status" value="1">                        
+                    </form>
+                    <form action="{% url 'myadmin_ordersupdate' %}" method="post">
+                    {% csrf_token %}
+                        <button>取消订单</button> 
+                        <input style="display:none;" name="id" value="{{ orders.id }}">
+                        <input style="display:none;" name="status" value="3">                        
+                    </form>                         
+                    {% elif orders.status == 1 %}已发货                        
+                    {% elif orders.status == 2 %}已收货                        
+                    {% elif orders.status == 3 %}未知订单                        
+                    {% endif %}
+                </td>
+                <td><a href="{% url 'myadmin_detailindex' orders.id %}" class="view-link">详情</a></td>
+                <td><a href="{% url 'myadmin_ordersedit' orders.id %}" class="view-link">修改</a></td>
+
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table> 
+    </center>               
+{% endblock %}

@@ -1,0 +1,155 @@
+{% extends "myweb/base.html" %}
+{% load static from staticfiles %}
+{% block "mylink" %}
+	<link rel="stylesheet" type="text/css" href="{% static 'myweb/css/register.css' %}">
+{% endblock %}
+{% block mainbody %}	  
+    <div class="container-fluid"> 
+		<div class="banner-box hidden-xs hidden-sm">
+			<div class="container"> 
+				<form id="mainForm" class="main-form" method="post" action="{% url 'usersinsert' %}">
+				<center>
+					<div class="tab-title">
+						<a class="linkABlue" id="toTelRegister" href="javascript:void(0)">注册 Flyme 账号</a>
+					</div><br/>
+					{% csrf_token %}
+			        <fieldset>
+			            <div class="control-group">
+			                <!-- <label class="control-label" for="input01">账号：</label> -->
+			                <div class="controls">
+			                    <input type="text" name="username" class="input-xlarge" id="input01" value="" placeholder="请输入账号"/>
+			                </div>
+			            </div><br/>
+			            <div class="control-group">
+			                <!-- <label class="control-label" for="input01">密码：</label> -->
+			                <div class="controls">
+			                    <input type="password" name="password" class="input-xlarge" placeholder="请输入密码" id="input01"/>
+			                </div>
+			            </div><br/>
+			            <div class="control-group">
+			                <!-- <label class="control-label" for="input01">重复密码：</label> -->
+			                <div class="controls">
+			                    <input type="password" name="repassword" class="input-xlarge" placeholder="请重复输入密码" id="input01"/>
+			                </div>
+			            </div><br/>
+			            <div class="control-group">
+			                <!-- <label class="control-label" for="input01">真实姓名：</label> -->
+			                <div class="controls">
+			                    <input type="text" name="name" class="input-xlarge" placeholder="请输入真实姓名" id="input01"/>
+			                </div>
+			            </div><br/>
+			            <div class="control-group">
+			                <!-- <label class="control-label" for="input01">性别：</label> -->
+			                <div class="controls">
+			                	<span>性别:&nbsp;&nbsp;</span>
+			                    <input type="radio" name="sex" class="input-xlarge" id="input01" value="1" /> 男
+			                    <input type="radio" name="sex" class="input-xlarge" id="input01" value="0" /> 女
+			                </div>
+			            </div><br/>
+			            <div class="control-group">
+			                <!-- <label class="control-label" for="input01">地址：</label> -->
+			                <div class="controls">
+			                    <input type="text" name="address" class="input-xlarge" placeholder="请输入地址" id="input01"/>
+			                </div>
+			            </div><br/>
+			            <div class="control-group">
+			                <!-- <label class="control-label" for="input01">邮编：</label> -->
+			                <div class="controls">
+			                    <input type="text" name="code" class="input-xlarge" placeholder="请输入邮编" id="input01"/>
+			                </div>
+			            </div><br/>
+			            <div class="control-group">
+			                <!-- <label class="control-label" for="input01">电话：</label> -->
+			                <div class="controls">
+			                    <input type="text" name="phone" class="input-xlarge" placeholder="请输入电话" id="input01"/>
+			                </div>
+			            </div><br/>
+			            <div class="control-group">
+			                <!-- <label class="control-label" for="input01">email邮箱：</label> -->
+			                <div class="controls">
+			                    <input type="text" name="email" class="input-xlarge" placeholder="请输入email邮箱" id="input01"/>
+			                </div>
+			            </div><br/>                        
+			            <div class="form-actions">
+			                <button type="submit" class="btn btn-primary">注册</button> <button type="reset" class="btn btn-primary">重置</button>
+			            </div>
+			        </fieldset>
+			    </center>
+				</form>
+			</div>
+		</div>
+        <!-- 移动端结构 -->
+        		<form id="mainForm" class="main-form app-main-form" method="post" action="{% url 'usersinsert' %}">
+				<center>
+					<div class="tab-title">
+						<a class="linkABlue" id="toTelRegister" href="javascript:void(0)">注册 Flyme 账号</a>
+					</div><br/>
+					{% csrf_token %}
+			        <fieldset>
+			            <div class="control-group">
+			                <!-- <label class="control-label" for="input01">账号：</label> -->
+			                <div class="controls">
+			                    <input type="text" name="username" class="input-xlarge" id="input01" value="" placeholder="请输入账号"/>
+			                </div>
+			            </div><br/>
+			            <div class="control-group">
+			                <!-- <label class="control-label" for="input01">密码：</label> -->
+			                <div class="controls">
+			                    <input type="password" name="password" class="input-xlarge" placeholder="请输入密码" id="input01"/>
+			                </div>
+			            </div><br/>
+			            <div class="control-group">
+			                <!-- <label class="control-label" for="input01">重复密码：</label> -->
+			                <div class="controls">
+			                    <input type="password" name="repassword" class="input-xlarge" placeholder="请重复输入密码" id="input01"/>
+			                </div>
+			            </div><br/>
+			            <div class="control-group">
+			                <!-- <label class="control-label" for="input01">真实姓名：</label> -->
+			                <div class="controls">
+			                    <input type="text" name="name" class="input-xlarge" placeholder="请输入真实姓名" id="input01"/>
+			                </div>
+			            </div><br/>
+			            <div class="control-group">
+			                <!-- <label class="control-label" for="input01">性别：</label> -->
+			                <div class="controls">
+			                	<span>性别:&nbsp;&nbsp;</span>
+			                    <input type="radio" name="sex" class="input-xlarge" id="input01" value="1" /> 男
+			                    <input type="radio" name="sex" class="input-xlarge" id="input01" value="0" /> 女
+			                </div>
+			            </div><br/>
+			            <div class="control-group">
+			                <!-- <label class="control-label" for="input01">地址：</label> -->
+			                <div class="controls">
+			                    <input type="text" name="address" class="input-xlarge" placeholder="请输入地址" id="input01"/>
+			                </div>
+			            </div><br/>
+			            <div class="control-group">
+			                <!-- <label class="control-label" for="input01">邮编：</label> -->
+			                <div class="controls">
+			                    <input type="text" name="code" class="input-xlarge" placeholder="请输入邮编" id="input01"/>
+			                </div>
+			            </div><br/>
+			            <div class="control-group">
+			                <!-- <label class="control-label" for="input01">电话：</label> -->
+			                <div class="controls">
+			                    <input type="text" name="phone" class="input-xlarge" placeholder="请输入电话" id="input01"/>
+			                </div>
+			            </div><br/>
+			            <div class="control-group">
+			                <!-- <label class="control-label" for="input01">email邮箱：</label> -->
+			                <div class="controls">
+			                    <input type="text" name="email" class="input-xlarge" placeholder="请输入email邮箱" id="input01"/>
+			                </div>
+			            </div><br/>                        
+			            <div class="form-actions">
+			                <button type="submit" class="btn btn-primary">注册</button> <button type="reset" class="btn btn-primary">重置</button>
+			            </div>
+			        </fieldset>
+			    </center>
+				</form>
+      	<!-- 移动端结构 E-->
+
+    </div>
+  
+{% endblock %}

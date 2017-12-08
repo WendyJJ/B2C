@@ -1,0 +1,82 @@
+{% extends "myadmin/base.html" %}
+
+{% block mainbody %} 
+    <div class="container">
+    <h4>
+        会员信息管理
+    </h4>
+    <form action="{% url 'myadmin_usersindex' 1 %}" method="get">
+        姓名：<input type="text" size="6" name="name" value="{{request.GET.name}}"/>
+        性别：<select name="sex">
+                <option value="">全部</option>
+                <option {% if request.GET.sex == '1'%} selected {% endif %} value="1">男</option>
+                <option {% if request.GET.sex == '0'%} selected {% endif %} value="0">女</option>
+              </select>
+        <input style="margin-bottom:10px;" type="submit" value="搜索"/>
+    </form>
+    <br/>
+    <table class="table table-bordered table-striped">
+        <thead>
+            <tr>
+                <th>账号</th>
+                <th>真实姓名</th>
+                <th>性别</th>
+                <th>邮箱</th>
+                <th>注册时间</th>
+                <th>状态</th>
+                <th>操作</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for vo in userslist %}
+            <tr>
+                <td>{{ vo.username }}</td>
+                <td>{{ vo.name }}</td>
+                <td>{% if vo.sex == 1 %} 男 {% else %} 女 {% endif %}</td>
+                <td>{{ vo.email }}</td>
+                <td>{{ vo.addtime }}</td>
+                <td {% if vo.state == 0 %} style="color:#93c;" {% elif vo.state == 1 %} style="color:green;" {% elif vo.state == 2 %} style="color:red;" {% endif %}>{% if vo.state == 0 %} 管理员 {% elif vo.state == 1 %} 启用 {% elif vo.state == 2 %} 禁用 {% endif %}</td>
+                <td>
+                    <a href="{% url 'myadmin_usersdel' vo.id %}" class="view-link">删除</a>
+                    <a href="{% url 'myadmin_usersedit' vo.id %}" class="view-link">编辑</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <br/><br/>
+    <div class="pagination">
+        <ul>
+            {% if pIndex <= 1 %}
+                <li>
+                    <a href="/myadmin/users{{aaa|add:'1'}}?{{where|join:'&'}}">&laquo;</a>
+                </li>
+                {%else%}
+                <li>
+                    <a href="/myadmin/users{{pIndex|add:'-1'}}?{{where|join:'&'}}">&laquo;</a>
+                </li>
+                {%endif%}
+
+            {%for pindex in plist%}
+                {%if pIndex == pindex%}
+                    <li class="active"><a href="/myadmin/users{{pindex}}?{{where|join:'&'}}">{{pindex}}</a>
+                {%else%}
+                    <li><a href="/myadmin/users{{pindex}}?{{where|join:'&'}}">{{pindex}}</a>
+                {%endif%}
+                </li>
+                {%endfor%}
+            {% if pIndex <= pag %}
+                <li>
+                    <a href="/myadmin/users{{pIndex|add:'1'}}?{{where|join:'&'}}">&raquo;</a>
+                </li>
+            {%else%}
+                <li>
+                    <a href="/myadmin/users{{pindex|add:'1'}}?{{where|join:'&'}}">&raquo;</a>
+                </li>
+            {%endif%}
+        
+        </ul>
+    </div>
+    </div>
+{% endblock %} 

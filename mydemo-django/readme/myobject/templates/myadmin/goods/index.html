@@ -1,0 +1,99 @@
+{% extends "myadmin/base.html" %}
+
+{% block mainbody %}                
+    <h4>
+        商品信息管理
+    </h4>
+    <form action="{% url 'myadmin_goodsindex' 1 %}" method="get">
+        商品名称：<input type="text" size="6" name="goods" value="{{request.GET.goods}}"/>
+        商品类别：<select name="typename">
+                <option value="">全部</option>
+                <option value="">魅族手机</option>
+                <option value="">魅族美音</option>
+                <option value="">智能配件</option>
+                <!-- <option {% if request.GET.sex == '0'%} selected {% endif %} value="0">女</option> -->
+                </select>
+        <input style="margin-bottom:9px;" type="submit" value="搜索"/>
+    </form>
+    <br/>
+    <table class="table table-bordered table-striped">
+        <thead>
+            <tr>
+                <th>id号</th>
+                <th>商品名称</th>
+                <th>商品类别</th>
+                <th>图片</th>
+                <th>单价</th>
+                <th>点击量</th>
+                <th>状态</th>
+                <th>操作</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for vo in goodslist %}
+            <tr>
+                <td>{{ vo.id }}</td>
+                <td>{{ vo.goods }}</td>
+                <td>{{ vo.typename }}</td>
+                <td><img src="/static/goods/s_{{ vo.picname }}" width="60"/></td>
+                <td>{{ vo.price }}</td>
+                <td>{{ vo.clicknum }}</td>
+                <td {% if vo.state == 1 %}
+                        style="color:#93c;"
+                    {% elif vo.state == 2 %}
+                        style="color:green;"
+                    {% else %}
+                        style="color:red;"
+                    {% endif %}>
+                    {% if vo.state == 1 %}
+                        新添加
+                    {% elif vo.state == 2 %}
+                        在售
+                    {% else %}
+                        下架
+                    {% endif %}
+                </td>
+                <td>
+                    <a href="{% url 'myadmin_goodsdel' vo.id %}" class="view-link">删除</a>
+                    <a href="{% url 'myadmin_goodsedit' vo.id %}" class="view-link">编辑</a>
+                    <a href="#" class="view-link">推荐</a>
+
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>                
+    <div class="pagination">
+        <ul>
+            {% if pIndex <= 1 %}
+                <li>
+                    <a href="/myadmin/goods{{aaa|add:'1'}}?{{where|join:'&'}}">&laquo;</a>
+                </li>
+                {%else%}
+                <li>
+                    <a href="/myadmin/goods{{pIndex|add:'-1'}}?{{where|join:'&'}}">&laquo;</a>
+                </li>
+                {%endif%}
+
+            {%for pindex in plist%}
+                {%if pIndex == pindex%}
+                    <li class="active"><a href="/myadmin/goods{{pindex}}?{{where|join:'&'}}">{{pindex}}</a>
+                {%else%}
+                    <li><a href="/myadmin/goods{{pindex}}?{{where|join:'&'}}">{{pindex}}</a>
+                {%endif%}
+                </li>
+                {%endfor%}
+            {% if pIndex <= yy %}
+                <li>
+                    <a href="/myadmin/goods{{pIndex|add:'1'}}?{{where|join:'&'}}">&raquo;</a>
+                </li>
+            {%else%}
+                <li>
+                    <a href="/myadmin/goods{{pindex|add:'1'}}?{{where|join:'&'}}">&raquo;</a>
+                </li>
+            {%endif%}
+        
+        </ul>
+        
+    </div>
+{% endblock %}

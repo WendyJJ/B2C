@@ -1,0 +1,57 @@
+{% extends "myweb/base.html" %}
+{% load static from staticfiles %}
+{% block "mylink" %}
+    <link rel="stylesheet" type="text/css" href="{% static 'myweb/css/register.css' %}">
+    <!-- // <script src="{% static 'myweb/js/login.js' %}"></script> -->
+
+{% endblock %}
+{% block mainbody %}
+	<!-- 主内容区域 -->
+    
+    <div class="container-fluid"> 
+		<div class="banner-box hidden-xs hidden-sm">
+			<div class="container">
+				<form id="mainForm" class="main-form" method="post" action="{% url 'dologin' %}">
+					{% csrf_token %}
+          <div class="tab-title">
+						<a class="linkAGray" id="toAccountLogin" href="javascript:void(0);">账号登录</a><br/><br/>
+					</div>
+          账  &nbsp; 号：<input type="text" name="username" class="span3" readme="请输入5-18位用户名" placeholder="输入账号" /><span></span><br /><br/>
+          密  &nbsp; 码：<input type="password" name="password" class="span3" readme="请输入5-18位用户名" placeholder="输入密码" /><span></span><br /><br />
+          验证码：<input type="text" name="code" class="span3" style="width:50px;"  />
+          <img src="{% url 'verify' %}" onclick="this.src='{% url 'verify' %}?sn='+Math.random()"/><br/><br/>          
+          <button type="submit" class="btn btn-primary" style="width:240px;">登录</button>
+					<div class="transferField">						
+						<a class="go2register linkABlue" href="{% url 'register' %}" id="toRegister">注册&nbsp;&nbsp;|</a>
+					  <a class="go1forgetpwd linkABlue rememberFieldForA" href="#">&nbsp;&nbsp;忘记密码?</a>
+          </div>
+				</form>
+        <span style="color:red; position:absolute;right:0px;bottom:0px;top:420px;left:1100px;">{{ info }}</span>
+
+			</div>
+		</div>
+      <!-- 移动端结构 -->
+     
+        <!-- 移动端结构 -->
+        <form id="mainForm" class="main-form app-main-form" method="post" action="{% url 'dologin' %}">
+          {% csrf_token %}
+          <div class="tab-title">
+            <a class="linkAGray" id="toAccountLogin" href="javascript:void(0);">账号登录</a><br/><br/>
+          </div>
+          账  &nbsp; 号：<input type="text" name="username" class="span3" readme="请输入5-18位用户名" placeholder="输入账号" /><span></span><br /><br/>
+          密  &nbsp; 码：<input type="password" name="password" class="span3" readme="请输入5-18位用户名" placeholder="输入密码" /><span></span><br /><br />
+          验证码：<input type="text" name="code" class="span3" style="width:50px;"  />
+          <img src="{% url 'verify' %}" onclick="this.src='{% url 'verify' %}?sn='+Math.random()"/><br/><br/>          
+          <button type="submit" class="btn btn-primary">登录</button>
+          <div class="transferField">
+            
+            <a class="go2register linkABlue" href="{% url 'register' %}" id="toRegister">注册&nbsp;&nbsp;|</a>
+            <a class="go1forgetpwd linkABlue rememberFieldForA" href="#">&nbsp;&nbsp;忘记密码?</a>
+          </div>
+        </form>
+        <!-- 移动端结构 E-->
+
+    </div>
+  
+  <!-- 主内容区域  E-->
+{% endblock %}

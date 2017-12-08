@@ -1,0 +1,70 @@
+{% extends "myweb/base.html" %}
+{% load static from staticfiles %}
+{% block "mylink" %}
+  <link rel="stylesheet" type="text/css" href="{% static 'myweb/css/order.css' %}">
+  <link rel="stylesheet" type="text/css" href="{% static 'myweb/css/order2.css' %}">
+  <link rel="stylesheet" type="text/css" href="{% static 'myweb/css/order-app.css' %}">
+{% endblock %}
+{% block mainbody %}
+  <!-- 主内容区域 -->
+  <div class="mainbody order ">
+    <div class="container banner-box">
+    <center>
+      <form action="{% url 'ordersconfirm' %}" method="post"  style="margin-top:30px;margin-right:200px;">
+      {% csrf_token %}
+      <table  width="320" border="0" cellpadding="4" style='border-collapse:separate;border-spacing:0 15px;font-size:14px;color:#16A05D;'>
+      <h3 style="color:#F396CF;">收货地址</h3>
+        <tr>
+          <td align="right" >收件人:&nbsp;&nbsp;&nbsp;&nbsp;</td>
+          <td><input type="text" name="linkman" value="{{ request.session.vipuser.name }}"/></td>
+        </tr>        
+        <tr>
+          <td align="right">地址:&nbsp;&nbsp;&nbsp;&nbsp;</td>
+          <td><input type="text" name="address" value="{{ request.session.vipuser.address }}"/></td>
+        </tr>        
+        <tr>
+          <td align="right">邮编:&nbsp;&nbsp;&nbsp;&nbsp;</td>
+          <td><input type="text" name="code" value="{{ request.session.vipuser.code }}"/></td>
+        </tr>
+        <tr>
+          <td align="right">电话:&nbsp;&nbsp;&nbsp;&nbsp;</td>
+          <td><input type="text" name="phone" value="{{ request.session.vipuser.phone }}"/></td>
+        </tr>        
+        <tr>
+          <td align="right">总金额:&nbsp;&nbsp;&nbsp;&nbsp;</td>
+          <td style="font-size:18px;color:red;">￥{{ request.session.total }}元</td>
+        </tr><br>
+        <tr>
+          <td colspan="2" align="center">
+            <input type="submit" value="确认下单"/>&nbsp;&nbsp;&nbsp;&nbsp;
+            <input type="reset" value="重置"/>
+          </td>
+        </tr>
+      </table>    
+      </form><br/><br/>
+      <table class="table2" width="640" border="1" cellpadding="4" style="margin-top:30px;margin-right:200px;border:1px solid #DE9AE7;color:#ACABF7;">
+        <h3 style="margin-right:200px;color:#F396CF;">购物车信息</h3>
+        <tr>
+          <th>ID号</th>
+          <th>名称</th>
+          <th>图片</th>
+          <th>单价</th>
+          <th>数量</th>
+          <th>小计</th>
+        </tr>
+        {% for goods in request.session.orderlist.values %}
+        <tr>
+          <td>{{ goods.id }}</td>
+          <td>{{ goods.goods }}</td>
+          <td><img src="/static/goods/s_{{ goods.picname }}" width="40"></td>
+          <td>{{ goods.price }}</td>
+          <td>{{ goods.m }}</td>
+          <td>{% widthratio goods.price 1 goods.m %}</td>
+        </tr>
+        {% endfor %}
+      </table>
+    </center>
+    </div>  
+  </div>
+  <!-- 主内容区域 E-->
+{% endblock %}

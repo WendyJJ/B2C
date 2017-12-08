@@ -1,0 +1,51 @@
+{% extends "myweb/base.html" %}
+{% load static from staticfiles %}
+{% block "mylink" %}
+	<link rel="stylesheet" type="text/css" href="{% static 'myweb/css/member.css' %}">
+	<link rel="stylesheet" type="text/css" href="{% static 'myweb/css/member-app.css' %}">
+	<link rel="stylesheet" type="text/css" href="{% static 'myweb/css/member2.css' %}">
+
+{% endblock %}
+{% block mainbody %}
+	
+	<center class="banner-box" style="margin-right:200px;">
+		<br/><br/><br/><br/>
+		<h3 style="margin-right:260px;">
+        修改个人信息
+	    </h3>
+	    <form id="edit-profile" action="{% url 'memberupdate' request.session.vipuser.id %}" class="form-horizontal" method="post" style="margin-right:260px;">
+	        {% csrf_token %}
+	        <fieldset>
+	            <div class="control-group">
+	                <label class="control-label" for="input01">真实姓名：</label>
+	                <div class="controls">
+	                    <input type="text" readonly name="name" class="input-xlarge" id="input01" value="{{ request.session.vipuser.name }}" />
+	                </div>
+	            </div>
+	            <div class="control-group">
+	                <label class="control-label" for="input01">地址：</label>
+	                <div class="controls">
+	                    <input type="text" name="address" class="input-xlarge" id="input01" value="{{ request.session.vipuser.address }}" />
+	                </div>
+	            </div>
+	            <div class="control-group">
+	                <label class="control-label" for="input01">电话：</label>
+	                <div class="controls">
+	                    <input type="text" name="phone" class="input-xlarge" id="input01" value="{{ request.session.vipuser.phone }}" />
+	                </div>
+	            </div>
+	            <div class="control-group">
+	                <label class="control-label" for="input01">email邮箱：</label>
+	                <div class="controls">
+	                    <input type="text" name="email" class="input-xlarge" id="input01" value="{{ request.session.vipuser.email }}" />
+	                </div>
+	            </div>  
+	            <br/>                      
+	            <div class="form-actions">
+	            <!-- <h3 style="color:red;">{{ info }}</h3> -->
+	                <button type="submit" class="btn btn-primary">保存</button> <button type="reset" class="btn">重置</button>
+	            </div>
+	        </fieldset>
+	    </form>
+	</center>
+{% endblock %}
